@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>WRunqwsServer - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="WRunqwsClient.html">WRunqwsClient</a><ul class='methods'><li data-type='method'><a href="WRunqwsClient.html#~modifyQueue">modifyQueue</a></li><li data-type='method'><a href="WRunqwsClient.html#~pushQueue">pushQueue</a></li><li data-type='method'><a href="WRunqwsClient.html#~subTopic">subTopic</a></li><li data-type='method'><a href="WRunqwsClient.html#~unsubTopic">unsubTopic</a></li></ul></li><li><a href="WRunqwsServer.html">WRunqwsServer</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">WRunqwsServer</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        WRunqwsServer
+        </h2>
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+    
+
+    <h4 class="name" id="WRunqwsServer"><span class="type-signature"></span>new WRunqwsServer<span class="signature">(opt<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="WRunqwsServer.mjs.html">WRunqwsServer.mjs</a>, <a href="WRunqwsServer.mjs.html#line88">line 88</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://yuda-lyu.github.io/w-converws/WConverwsServer.html">WConverwsServer</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>建立WebSocket伺服器</p>
+<p>Inherit: <a href="https://yuda-lyu.github.io/w-converws/WConverwsServer.html">WConverwsServer</a></p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>import WRunqwsServer from 'w-runqws/dist/w-runqws-server.umd.js'let opt = {    mongoUrl: 'mongodb://username:password@127.0.0.1:27017',    mongoDb: 'wqws',    mongoCl: 'queues',    port: 8080,    authenticate: async function(token) {        //使用token驗證使用者身份        return new Promise(function(resolve, reject) {            setTimeout(function() {                resolve(true)            }, 1000)        })    },}//newlet wo = new WRunqwsServer(opt)wo.on('open', function() {    console.log(`Server running at: ws://localhost:${opt.port}`)    // //broadcast    // let n = 0    // setInterval(() => {    //     n += 1    //     wo.broadcast(`server: broadcast: hi(${n})`)    // }, 1000)    // //show eventNames    // setInterval(() => {    //     console.log('eventNames:')    //     _.each(wo.eventNames(), function(v) {    //         console.log('    ', v, wo.listenerCount(v))    //     })    //     console.log('')    // }, 1000)})wo.on('error', function(err) {    console.log(`Server[port:${opt.port}]: error`, err)})wo.on('clientChange', function(clients) {    console.log(`Server[port:${opt.port}]: now clients: ${clients.length}`)})wo.on('execute', function(func, input, cb) {    console.log(`Server[port:${opt.port}]: execute`, func, input)    // if (func === 'add') {    //     let r = input.p1 + input.p2    //     cb(r)    // }})wo.on('broadcast', function(data) {    console.log(`Server[port:${opt.port}]: broadcast`, data)})wo.on('deliver', function(data) {    console.log(`Server[port:${opt.port}]: deliver`, data)})</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>opt</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>{}</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>輸入設定物件，預設{}</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>'mongodb://127.0.0.1:27017'</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>輸入連接資料庫字串，預設'mongodb://127.0.0.1:27017'</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>db</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>'wqws'</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>輸入使用資料庫名稱字串，預設'wqws'</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>'test'</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>輸入使用資料表名稱字串，預設'queues'</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>port</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Integer</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>8080</code>
+                
+                </td>
+            
+
+            <td class="description last"><p>輸入WebSocket伺服器所在port，預設8080</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>authenticate</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>輸入使用者身份認證函數，供伺服器端驗證之用，函數會傳入使用者端連線之token參數，回傳為Promise，resolve(true)為驗證通過，resolve(false)為驗證不通過</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>回傳通訊物件，可監聽事件open、error、clientChange、execute、broadcast、deliver，可使用函數broadcast</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Tue Jul 16 2019 17:48:41 GMT+0800 (GMT+08:00) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>
