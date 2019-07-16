@@ -100,7 +100,7 @@ let opt = {
     token: '*',
 }
 
-let missionTopic = 'refs|texts'
+let missionTopic = 'parser|texts'
 
 //new
 let wo = new WRunqwsClient(opt)
@@ -165,13 +165,19 @@ let opt = {
     token: '*',
 }
 
-let missionTopic = 'refs|texts'
+let missionTopic = 'parser|texts'
 
 //new
 let wo = new WRunqwsClient(opt)
 
 wo.on('open', function() {
     console.log('client nodejs[port:8080]: open')
+
+    // //delQueueByTopic
+    // wo.delQueueByTopic(missionTopic)
+    //     .then(function(msg) {
+    //         console.log('delQueueByTopic', msg)
+    //     })
 
     //subTopic
     wo.subTopic(missionTopic)
@@ -231,14 +237,15 @@ wo.on('queueChange', function(topic, id, input, output, state) {
 1. `Producer` sends missions to `Consumer`.
 2. `Consumer` handles each queue.
 3. `Consumer` produces the other result(combination e.g.), and saves in one queue.
-4. `Producer` get result from the queue from `Consumer`.
+4. `Producer` gets results from the queue.
+5. `Producer` removes queues in database.
 
 ### In a browser(UMD module):
 > **Note:** `w-runqws-client` does't depend on any package.
 
 [Necessary] Add script for w-runqws-client.
 ```alias
-<script src="https://cdn.jsdelivr.net/npm/w-runqws@1.0.0/dist/w-runqws-client.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/w-runqws@1.0.1/dist/w-runqws-client.umd.js"></script>
 ```
 #### Example for w-runqws-client:
 > **Link:** [[dev source code](https://github.com/yuda-lyu/w-runqws/blob/master/web.html)]
@@ -250,7 +257,7 @@ let opt = {
     token: '*',
 }
 
-let missionTopic = 'refs|texts'
+let missionTopic = 'parser|texts'
 
 //new
 let WRunqwsClient = window['w-runqws-client']

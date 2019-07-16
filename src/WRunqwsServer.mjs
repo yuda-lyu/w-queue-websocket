@@ -1,5 +1,6 @@
 import cloneDeep from 'lodash/cloneDeep'
 import get from 'lodash/get'
+import map from 'lodash/map'
 import genID from 'wsemi/src/genID.mjs'
 import WConverwsServer from 'w-converws/src/WConverwsServer.mjs' //rollup編譯時得剔除ws與events
 import WOrm from 'w-orm-mongodb/src/WOrmMongodb.mjs' //rollup編譯時得剔除mongodb與stream
@@ -123,10 +124,6 @@ function WRunqwsServer(opt = {}) {
     wcs.on('execute', async function(func, _intput, callback, sendData) {
         //console.log('execute', func, _intput)
 
-        //check
-        if (func !== 'pushQueue' && func !== 'modifyQueue' && func !== 'subTopic' && func !== 'unsubTopic') {
-            return
-        }
 
         //topic
         let topic = get(_intput, 'topic', null)
@@ -146,6 +143,10 @@ function WRunqwsServer(opt = {}) {
             sendData(data)
 
         }
+
+
+        //_output
+        let _output
 
 
         //func
@@ -174,13 +175,10 @@ function WRunqwsServer(opt = {}) {
                 state: 'ready',
             }
 
-            //_output
-            let _output
-
             //insert queue
             await worm.insert(r)
                 .then(function(msg) {
-                    //console.log('pushQueue insert then', msg)
+                    //console.log('pushQueue then', msg)
 
                     //emit
                     wcs.emit(topic, {
@@ -192,14 +190,14 @@ function WRunqwsServer(opt = {}) {
                     })
 
                     //_output
-                    _output = 'pushQueue success'
+                    _output = 'success'
 
                 })
                 .catch(function(msg) {
-                    //console.log('pushQueue insert catch', msg)
+                    //console.log('pushQueue catch', msg)
 
                     //_output
-                    _output = { err: `can not find: ${func}` }
+                    _output = { err: msg }
 
                 })
 
@@ -211,9 +209,6 @@ function WRunqwsServer(opt = {}) {
 
             //id
             let id = get(_intput, 'id', null)
-
-            //_output
-            let _output
 
             //check
             if (id !== null) {
@@ -237,7 +232,7 @@ function WRunqwsServer(opt = {}) {
                 //save queue
                 await worm.save(r)
                     .then(function(msg) {
-                        //console.log('modifyQueue save then', msg)
+                        //console.log('modifyQueue then', msg)
 
                         //emit
                         wcs.emit(topic, {
@@ -249,14 +244,14 @@ function WRunqwsServer(opt = {}) {
                         })
 
                         //_output
-                        _output = 'modifyQueue success'
+                        _output = 'success'
 
                     })
                     .catch(function(msg) {
-                        //console.log('modifyQueue save catch', msg)
+                        //console.log('modifyQueue catch', msg)
 
                         //_output
-                        _output = { err: `can not find: ${func}` }
+                        _output = { err: msg }
 
                     })
 
@@ -281,7 +276,7 @@ function WRunqwsServer(opt = {}) {
             wcs.on(topic, wcs.deliverQueue)
 
             //_output
-            let _output = 'subTopic success'
+            _output = 'success'
 
             //callback
             callback(_output)
@@ -296,11 +291,134 @@ function WRunqwsServer(opt = {}) {
             wcs.deliverQueue = null
 
             //_output
-            let _output = 'unsubTopic success'
+            _output = 'success'
 
             //callback
             callback(_output)
 
+        }
+        else if (func === 'delQueueByTopic') {
+
+            //del queue by topic
+            await worm.delAll({ topic: topic })
+                .then(function(msg) {
+                    //console.log('delQueueByTopic then', msg)
+
+                    //_output
+                    _output = 'success'
+
+                })
+                .catch(function(msg) {
+                    //console.log('delQueueByTopic catch', msg)
+
+                    //_output
+                    _output = { err: msg }
+
+                })
+
+            //callback
+            callback(_output)
+
+        }
+        else if (func === 'delQueueByID') {
+
+            //id
+            let id = get(_intput, 'id', null)
+
+            //check
+            if (id !== null) {
+
+                //del queue by id
+                await worm.delAll({ id: id })
+                    .then(function(msg) {
+                    //console.log('delQueueByID then', msg)
+
+                        //_output
+                        _output = 'success'
+
+                    })
+                    .catch(function(msg) {
+                    //console.log('delQueueByID catch', msg)
+
+                        //_output
+                        _output = { err: msg }
+
+                    })
+
+            }
+            else {
+
+                //_output
+                _output = { err: `can not find id` }
+
+            }
+
+            //callback
+            callback(_output)
+
+        }
+        else if (func === 'delQueueByIDs') {
+
+            //ids
+            let ids = get(_intput, 'ids', null)
+
+            //pms
+            let pms = map(ids, function(id) {
+
+                //del queue by id
+                return worm.delAll({ id: id })
+
+            })
+
+            //map
+            await Promise.all(pms)
+                .then(function(msg) {
+                    //console.log('delQueueByIDs then', msg)
+
+                    //_output
+                    _output = 'success'
+
+                })
+                .catch(function(msg) {
+                    //console.log('delQueueByIDs catch', msg)
+
+                    //_output
+                    _output = { err: msg }
+
+                })
+
+            //callback
+            callback(_output)
+
+        }
+        else if (func === 'delQueueByMatches') {
+
+            //find
+            let find = get(_intput, 'find', null)
+
+            //del queue by find
+            await worm.delAll(find)
+                .then(function(msg) {
+                    //console.log('delQueueByMatches then', msg)
+
+                    //_output
+                    _output = 'success'
+
+                })
+                .catch(function(msg) {
+                    //console.log('delQueueByMatches catch', msg)
+
+                    //_output
+                    _output = { err: msg }
+
+                })
+
+            //callback
+            callback(_output)
+
+        }
+        else {
+            //其他執行函數
         }
 
 

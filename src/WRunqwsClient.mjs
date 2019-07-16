@@ -14,7 +14,7 @@ import WConverwsClient from 'w-converws/src/WConverwsClient.mjs'
  * @param {Object} [opt={}] 輸入設定物件，預設{}
  * @param {String} [opt.url='ws://localhost:8080'] 輸入WebSocket伺服器ws網址，預設為'ws://localhost:8080'
  * @param {String} [opt.token='*'] 輸入使用者認證用token，預設為'*'
- * @returns {Object} 回傳通訊物件，可監聽事件open、openOnce、close、error、reconn、broadcast、deliver、queueChange，可執行事件pushQueue、modifyQueue、subTopic、unsubTopic
+ * @returns {Object} 回傳通訊物件，可監聽事件open、openOnce、close、error、reconn、broadcast、deliver、queueChange，可執行事件pushQueue、modifyQueue、subTopic、unsubTopic、delQueueByTopic、delQueueByID、delQueueByIDs、delQueueByMatches
  * @example
  *
  * import WRunqwsClient from 'w-runqws/dist/w-runqws-client.umd.js'
@@ -24,13 +24,19 @@ import WConverwsClient from 'w-converws/src/WConverwsClient.mjs'
  *     token: '*',
  * }
  *
- * let missionTopic = 'refs|texts'
+ * let missionTopic = 'parser|texts'
  *
  * //new
  * let wo = new WRunqwsClient(opt)
  *
  * wo.on('open', function() {
  *     console.log('client nodejs[port:8080]: open')
+ *
+ *     // //delQueueByTopic
+ *     // wo.delQueueByTopic(missionTopic)
+ *     //     .then(function(msg) {
+ *     //         console.log('delQueueByTopic', msg)
+ *     //     })
  *
  *     //subTopic
  *     wo.subTopic(missionTopic)
@@ -145,92 +151,6 @@ function WRunqwsClient(opt = {}) {
     })
 
 
-    //pushQueue
-    wcc.on('pushQueue', function(topic, input, option) {
-
-        //_input
-        let _input = {
-            topic,
-            input,
-            option,
-        }
-
-        //execute
-        wcc.execute('pushQueue', _input)
-            .then(function(_output) {
-                //console.log('pushQueue: then', _output)
-            })
-            .catch(function(err) {
-                wcc.emit('error', 'pushQueue: catch', err)
-            })
-
-    })
-
-
-    //modifyQueue
-    wcc.on('modifyQueue', function(topic, id, input, output, state) {
-
-        //_input
-        let _input = {
-            topic,
-            id,
-            input,
-            output,
-            state,
-        }
-
-        //execute
-        wcc.execute('modifyQueue', _input)
-            .then(function(_output) {
-                //console.log('modifyQueue: then', _output)
-            })
-            .catch(function(err) {
-                wcc.emit('error', 'modifyQueue: catch', err)
-            })
-
-    })
-
-
-    //subTopic
-    wcc.on('subTopic', function(topic) {
-
-        //_input
-        let _input = {
-            topic,
-        }
-
-        //execute
-        wcc.execute('subTopic', _input)
-            .then(function(_output) {
-                //console.log('subTopic: then', _output)
-            })
-            .catch(function(err) {
-                wcc.emit('error', 'subTopic: catch', err)
-            })
-
-    })
-
-
-    //unsubTopic
-    wcc.on('unsubTopic', function(topic) {
-
-        //_input
-        let _input = {
-            topic,
-        }
-
-        //execute
-        wcc.execute('unsubTopic', _input)
-            .then(function(_output) {
-                //console.log('unsubTopic: then', _output)
-            })
-            .catch(function(err) {
-                wcc.emit('error', 'unsubTopic: catch', err)
-            })
-
-    })
-
-
     /**
      * 佇列發佈事件
      *
@@ -244,7 +164,17 @@ function WRunqwsClient(opt = {}) {
      * @param {String} [option.timeTakeExp=null] 輸入佇列被拿取失效時間字串
      */
     function pushQueue(topic, input, option = {}) {
-        wcc.emit('pushQueue', topic, input, option)
+
+        //_input
+        let _input = {
+            topic,
+            input,
+            option,
+        }
+
+        //execute
+        return wcc.execute('pushQueue', _input)
+
     }
     wcc.pushQueue = pushQueue
 
@@ -258,7 +188,19 @@ function WRunqwsClient(opt = {}) {
      * @param {String} state 輸入佇列用之狀態字串
      */
     function modifyQueue(topic, id, input, output, state) {
-        wcc.emit('modifyQueue', topic, id, input, output, state)
+
+        //_input
+        let _input = {
+            topic,
+            id,
+            input,
+            output,
+            state,
+        }
+
+        //execute
+        return wcc.execute('modifyQueue', _input)
+
     }
     wcc.modifyQueue = modifyQueue
 
@@ -269,7 +211,15 @@ function WRunqwsClient(opt = {}) {
      * @param {String} topic 輸入欲訂閱主題字串
      */
     function subTopic(topic) {
-        wcc.emit('subTopic', topic)
+
+        //_input
+        let _input = {
+            topic,
+        }
+
+        //execute
+        return wcc.execute('subTopic', _input)
+
     }
     wcc.subTopic = subTopic
 
@@ -280,9 +230,93 @@ function WRunqwsClient(opt = {}) {
      * @param {String} topic 輸入欲取消主題字串
      */
     function unsubTopic(topic) {
-        wcc.emit('unsubTopic', topic)
+
+        //_input
+        let _input = {
+            topic,
+        }
+
+        //execute
+        return wcc.execute('unsubTopic', _input)
+
     }
     wcc.unsubTopic = unsubTopic
+
+
+    /**
+     * 由訂閱主題刪除佇列
+     *
+     * @param {String} topic 輸入訂閱主題字串
+     */
+    function delQueueByTopic(topic) {
+
+        //_input
+        let _input = {
+            topic,
+        }
+
+        //execute
+        return wcc.execute('delQueueByTopic', _input)
+
+    }
+    wcc.delQueueByTopic = delQueueByTopic
+
+
+    /**
+     * 由佇列id刪除佇列
+     *
+     * @param {String} id 輸入佇列id字串
+     */
+    function delQueueByID(id) {
+
+        //_input
+        let _input = {
+            id,
+        }
+
+        //execute
+        return wcc.execute('delQueueByID', _input)
+
+    }
+    wcc.delQueueByID = delQueueByID
+
+
+    /**
+     * 由佇列id陣列刪除佇列
+     *
+     * @param {Array} ids 輸入佇列id字串陣列
+     */
+    function delQueueByIDs(ids) {
+
+        //_input
+        let _input = {
+            ids,
+        }
+
+        //execute
+        return wcc.execute('delQueueByIDs', _input)
+
+    }
+    wcc.delQueueByIDs = delQueueByIDs
+
+
+    /**
+     * 由刪除條件刪除佇列
+     *
+     * @param {Object} find 輸入刪除條件物件
+     */
+    function delQueueByMatches(find) {
+
+        //_input
+        let _input = {
+            find,
+        }
+
+        //execute
+        return wcc.execute('delQueueByMatches', _input)
+
+    }
+    wcc.delQueueByMatches = delQueueByMatches
 
 
     return wcc

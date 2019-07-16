@@ -8,7 +8,7 @@ let opt = {
     token: '*',
 }
 
-let missionTopic = 'refs|texts'
+let missionTopic = 'parser|texts'
 
 //new
 let wo = new WRunqwsClient(opt)

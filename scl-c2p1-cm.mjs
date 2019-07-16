@@ -9,7 +9,7 @@ let opt = {
     token: '*',
 }
 
-let missionTopic = 'refs|texts'
+let missionTopic = 'merge|texts'
 
 let dtqs = {}
 
@@ -77,8 +77,11 @@ wo.on('queueChange', function(topic, id, input, output, state) {
             //order
             dtqs[pid].qs = _.orderBy(dtqs[pid].qs, 'input.n')
 
-            //merge output
-            output = _.join(_.map(dtqs[pid].qs, 'output'), '')
+            //output
+            output = {
+                result: _.join(_.map(dtqs[pid].qs, 'output'), ''),
+                ids: _.map(dtqs[pid].qs, 'id'),
+            }
 
             //state
             state = 'finish'

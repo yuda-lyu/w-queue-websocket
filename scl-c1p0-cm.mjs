@@ -8,13 +8,19 @@ let opt = {
     token: '*',
 }
 
-let missionTopic = 'refs|texts'
+let missionTopic = 'parser|texts'
 
 //new
 let wo = new WRunqwsClient(opt)
 
 wo.on('open', function() {
     console.log('client nodejs[port:8080]: open')
+
+    // //delQueueByTopic
+    // wo.delQueueByTopic(missionTopic)
+    //     .then(function(msg) {
+    //         console.log('delQueueByTopic', msg)
+    //     })
 
     //subTopic
     wo.subTopic(missionTopic)

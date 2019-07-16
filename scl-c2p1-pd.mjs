@@ -9,7 +9,7 @@ let opt = {
     token: '*',
 }
 
-let missionTopic = 'refs|texts'
+let missionTopic = 'merge|texts'
 
 //new
 let wo = new WRunqwsClient(opt)
@@ -76,7 +76,16 @@ wo.on('queueChange', function(topic, id, input, output, state) {
 
     //finish queue
     if (topic === missionTopic && state === 'finish') {
-        console.log('result: ' + output)
+
+        //show result
+        console.log('result: ' + output.result)
+
+        //delQueueByIDs
+        wo.delQueueByIDs(output.ids)
+            .then(function(msg) {
+                console.log('delQueueByIDs', msg)
+            })
+
     }
 
 })
