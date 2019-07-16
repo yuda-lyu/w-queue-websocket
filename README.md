@@ -10,7 +10,7 @@ An operator for websocket in nodejs and browser.
 [![jsdelivr download](https://img.shields.io/jsdelivr/npm/hm/w-runqws.svg)](https://www.jsdelivr.com/package/npm/w-runqws)
 
 ## Documentation
-To view documentation or get support, visit [docs](https://yuda-lyu.github.io/w-runqws/WConverwsServer.html).
+To view documentation or get support, visit [docs](https://yuda-lyu.github.io/w-runqws/WRunqwsServer.html).
 
 ## Parts
 `w-runqws` includes 2 parts: 
