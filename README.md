@@ -223,6 +223,16 @@ wo.on('queueChange', function(topic, id, input, output, state) {
 })
 ```
 
+#### Example for w-runqws-client in a complicated situation:
+> Consumer, **Link:** [[dev source code](https://github.com/yuda-lyu/w-runqws/blob/master/scl-c2p1-cm.mjs)]
+
+> Producer, **Link:** [[dev source code](https://github.com/yuda-lyu/w-runqws/blob/master/scl-c2p1-pd.mjs)]
+
+1. `Producer` sends missions to `Consumer`.
+2. `Consumer` handles each queue.
+3. `Consumer` produces the other result(combination e.g.), and saves in one queue.
+4. `Producer` get result from the queue from `Consumer`.
+
 ### In a browser(UMD module):
 > **Note:** `w-runqws-client` does't depend on any package.
 
