@@ -27,7 +27,7 @@
 
 <nav >
     
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="WRunqwsClient.html">WRunqwsClient</a><ul class='methods'><li data-type='method'><a href="WRunqwsClient.html#~modifyQueue">modifyQueue</a></li><li data-type='method'><a href="WRunqwsClient.html#~pushQueue">pushQueue</a></li><li data-type='method'><a href="WRunqwsClient.html#~subTopic">subTopic</a></li><li data-type='method'><a href="WRunqwsClient.html#~unsubTopic">unsubTopic</a></li></ul></li><li><a href="WRunqwsServer.html">WRunqwsServer</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="WRunqwsClient.html">WRunqwsClient</a><ul class='methods'><li data-type='method'><a href="WRunqwsClient.html#~delQueueByID">delQueueByID</a></li><li data-type='method'><a href="WRunqwsClient.html#~delQueueByIDs">delQueueByIDs</a></li><li data-type='method'><a href="WRunqwsClient.html#~delQueueByMatches">delQueueByMatches</a></li><li data-type='method'><a href="WRunqwsClient.html#~delQueueByTopic">delQueueByTopic</a></li><li data-type='method'><a href="WRunqwsClient.html#~modifyQueue">modifyQueue</a></li><li data-type='method'><a href="WRunqwsClient.html#~pushQueue">pushQueue</a></li><li data-type='method'><a href="WRunqwsClient.html#~subTopic">subTopic</a></li><li data-type='method'><a href="WRunqwsClient.html#~unsubTopic">unsubTopic</a></li></ul></li><li><a href="WRunqwsServer.html">WRunqwsServer</a></li></ul>
 </nav>
 
 <div id="main">
@@ -71,7 +71,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="WRunqwsClient.mjs.html">WRunqwsClient.mjs</a>, <a href="WRunqwsClient.mjs.html#line105">line 105</a>
+        <a href="WRunqwsClient.mjs.html">WRunqwsClient.mjs</a>, <a href="WRunqwsClient.mjs.html#line111">line 111</a>
     </li></ul></dd>
     
 
@@ -132,7 +132,7 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>import WRunqwsClient from 'w-runqws/dist/w-runqws-client.umd.js'let opt = {    url: 'ws://localhost:8080',    token: '*',}let missionTopic = 'refs|texts'//newlet wo = new WRunqwsClient(opt)wo.on('open', function() {    console.log('client nodejs[port:8080]: open')    //subTopic    wo.subTopic(missionTopic)    function addMission(n) {        //input        let input = '#' + n        //option        let option = {}        //pushQueue        wo.pushQueue(missionTopic, input, option)    }    //mission    let n = 0    let t = setInterval(function() {        n += 1        addMission(n)        if (n === 10) {            clearInterval(t)        }    }, 50)})wo.on('openOnce', function() {    console.log('client nodejs[port:8080]: openOnce')})wo.on('close', function() {    console.log('client nodejs[port:8080]: close')})wo.on('error', function(err) {    console.log('client nodejs[port:8080]: error', err)})wo.on('reconn', function() {    console.log('client nodejs[port:8080]: reconn')})wo.on('broadcast', function(data) {    console.log('client nodejs[port:8080]: broadcast', data)})wo.on('deliver', function(data) {    //console.log('client nodejs[port:8080]: deliver', data)})wo.on('queueChange', function(topic, id, input, output, state) {    //console.log('client nodejs[port:8080]: queueChange', topic, id, input, output, state)    console.log('queueChange', input, output, state)    //ready queue    if (topic === missionTopic &amp;&amp; state === 'ready') {        setTimeout(function() {            //output            output = 'done(' + input.replace('#', '') + ')'            //state            state = 'finish'            //modifyQueue            wo.modifyQueue(topic, id, input, output, state)        }, 1000)    }})</code></pre>
+    <pre class="prettyprint"><code>import WRunqwsClient from 'w-runqws/dist/w-runqws-client.umd.js'let opt = {    url: 'ws://localhost:8080',    token: '*',}let missionTopic = 'parser|texts'//newlet wo = new WRunqwsClient(opt)wo.on('open', function() {    console.log('client nodejs[port:8080]: open')    // //delQueueByTopic    // wo.delQueueByTopic(missionTopic)    //     .then(function(msg) {    //         console.log('delQueueByTopic', msg)    //     })    //subTopic    wo.subTopic(missionTopic)    function addMission(n) {        //input        let input = '#' + n        //option        let option = {}        //pushQueue        wo.pushQueue(missionTopic, input, option)    }    //mission    let n = 0    let t = setInterval(function() {        n += 1        addMission(n)        if (n === 10) {            clearInterval(t)        }    }, 50)})wo.on('openOnce', function() {    console.log('client nodejs[port:8080]: openOnce')})wo.on('close', function() {    console.log('client nodejs[port:8080]: close')})wo.on('error', function(err) {    console.log('client nodejs[port:8080]: error', err)})wo.on('reconn', function() {    console.log('client nodejs[port:8080]: reconn')})wo.on('broadcast', function(data) {    console.log('client nodejs[port:8080]: broadcast', data)})wo.on('deliver', function(data) {    //console.log('client nodejs[port:8080]: deliver', data)})wo.on('queueChange', function(topic, id, input, output, state) {    //console.log('client nodejs[port:8080]: queueChange', topic, id, input, output, state)    console.log('queueChange', input, output, state)    //ready queue    if (topic === missionTopic &amp;&amp; state === 'ready') {        setTimeout(function() {            //output            output = 'done(' + input.replace('#', '') + ')'            //state            state = 'finish'            //modifyQueue            wo.modifyQueue(topic, id, input, output, state)        }, 1000)    }})</code></pre>
 
 
 
@@ -332,7 +332,7 @@
 
         
 <div class="param-desc">
-    <p>回傳通訊物件，可監聽事件open、openOnce、close、error、reconn、broadcast、deliver、queueChange，可執行事件pushQueue、modifyQueue、subTopic、unsubTopic</p>
+    <p>回傳通訊物件，可監聽事件open、openOnce、close、error、reconn、broadcast、deliver、queueChange，可執行事件pushQueue、modifyQueue、subTopic、unsubTopic、delQueueByTopic、delQueueByID、delQueueByIDs、delQueueByMatches</p>
 </div>
 
 
@@ -379,6 +379,550 @@
 
     
 
+    <h4 class="name" id="~delQueueByID"><span class="type-signature">(inner) </span>delQueueByID<span class="signature">(id)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="WRunqwsClient.mjs.html">WRunqwsClient.mjs</a>, <a href="WRunqwsClient.mjs.html#line270">line 270</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>由佇列id刪除佇列</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>輸入佇列id字串</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~delQueueByIDs"><span class="type-signature">(inner) </span>delQueueByIDs<span class="signature">(ids)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="WRunqwsClient.mjs.html">WRunqwsClient.mjs</a>, <a href="WRunqwsClient.mjs.html#line289">line 289</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>由佇列id陣列刪除佇列</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ids</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>輸入佇列id字串陣列</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~delQueueByMatches"><span class="type-signature">(inner) </span>delQueueByMatches<span class="signature">(find)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="WRunqwsClient.mjs.html">WRunqwsClient.mjs</a>, <a href="WRunqwsClient.mjs.html#line308">line 308</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>由刪除條件刪除佇列</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>find</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>輸入刪除條件物件</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~delQueueByTopic"><span class="type-signature">(inner) </span>delQueueByTopic<span class="signature">(topic)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="WRunqwsClient.mjs.html">WRunqwsClient.mjs</a>, <a href="WRunqwsClient.mjs.html#line251">line 251</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    <p>由訂閱主題刪除佇列</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>topic</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>輸入訂閱主題字串</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
     <h4 class="name" id="~modifyQueue"><span class="type-signature">(inner) </span>modifyQueue<span class="signature">(topic, input, output, state)</span><span class="type-signature"></span></h4>
 
     
@@ -391,7 +935,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="WRunqwsClient.mjs.html">WRunqwsClient.mjs</a>, <a href="WRunqwsClient.mjs.html#line260">line 260</a>
+        <a href="WRunqwsClient.mjs.html">WRunqwsClient.mjs</a>, <a href="WRunqwsClient.mjs.html#line190">line 190</a>
     </li></ul></dd>
     
 
@@ -596,7 +1140,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="WRunqwsClient.mjs.html">WRunqwsClient.mjs</a>, <a href="WRunqwsClient.mjs.html#line246">line 246</a>
+        <a href="WRunqwsClient.mjs.html">WRunqwsClient.mjs</a>, <a href="WRunqwsClient.mjs.html#line166">line 166</a>
     </li></ul></dd>
     
 
@@ -1047,7 +1591,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="WRunqwsClient.mjs.html">WRunqwsClient.mjs</a>, <a href="WRunqwsClient.mjs.html#line271">line 271</a>
+        <a href="WRunqwsClient.mjs.html">WRunqwsClient.mjs</a>, <a href="WRunqwsClient.mjs.html#line213">line 213</a>
     </li></ul></dd>
     
 
@@ -1183,7 +1727,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="WRunqwsClient.mjs.html">WRunqwsClient.mjs</a>, <a href="WRunqwsClient.mjs.html#line282">line 282</a>
+        <a href="WRunqwsClient.mjs.html">WRunqwsClient.mjs</a>, <a href="WRunqwsClient.mjs.html#line232">line 232</a>
     </li></ul></dd>
     
 
@@ -1322,7 +1866,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Tue Jul 16 2019 17:48:41 GMT+0800 (GMT+08:00) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Tue Jul 16 2019 21:09:29 GMT+0800 (GMT+08:00) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
