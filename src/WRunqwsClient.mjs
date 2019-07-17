@@ -319,6 +319,18 @@ function WRunqwsClient(opt = {}) {
     wcc.delQueueByMatches = delQueueByMatches
 
 
+    /**
+     * 監聽佇列變更事件
+     *
+     * @memberof WRunqwsClient
+     * @example
+     * wo.on('queueChange', function() {
+        *     ...
+        * })
+        */
+    function onQueueChange() {} onQueueChange()
+
+
     return wcc
 }
 
