@@ -79,7 +79,10 @@ wo.on('queueChange', function(topic, id, input, output, state) {
 
             //output
             output = {
-                result: _.join(_.map(dtqs[pid].qs, 'output'), ''),
+                result: {
+                    text: _.join(_.map(dtqs[pid].qs, 'output'), ''),
+                    data: new Uint8Array([66, 97, 115]),
+                },
                 ids: _.map(dtqs[pid].qs, 'id'),
             }
 

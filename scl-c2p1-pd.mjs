@@ -78,13 +78,28 @@ wo.on('queueChange', function(topic, id, input, output, state) {
     if (topic === missionTopic && state === 'finish') {
 
         //show result
-        console.log('result: ' + output.result)
+        console.log('result: ', output.result)
 
-        //delQueueByIDs
-        wo.delQueueByIDs(output.ids)
-            .then(function(msg) {
-                console.log('delQueueByIDs', msg)
+        //getQueueByTopic
+        wo.getQueueByTopic(missionTopic)
+            .then(function(qs) {
+                //console.log('getQueueByTopic', qs)
+                let r = qs.map(function(q) {
+                    return q.input
+                })
+                console.log(r)
             })
+
+        //delay 1s
+        setTimeout(function() {
+
+            //delQueueByIDs
+            wo.delQueueByIDs(output.ids)
+                .then(function(msg) {
+                    console.log('delQueueByIDs', msg)
+                })
+
+        }, 1000)
 
     }
 

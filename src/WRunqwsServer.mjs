@@ -417,6 +417,126 @@ function WRunqwsServer(opt = {}) {
             callback(_output)
 
         }
+        else if (func === 'getQueueByTopic') {
+
+            //get queue by topic
+            await worm.select({ topic: topic })
+                .then(function(msg) {
+                    //console.log('getQueueByTopic then', msg)
+
+                    //_output
+                    _output = msg
+
+                })
+                .catch(function(msg) {
+                    //console.log('getQueueByTopic catch', msg)
+
+                    //_output
+                    _output = { err: msg }
+
+                })
+
+            //callback
+            callback(_output)
+
+        }
+        else if (func === 'getQueueByID') {
+
+            //id
+            let id = get(_intput, 'id', null)
+
+            //check
+            if (id !== null) {
+
+                //get queue by id
+                await worm.select({ id: id })
+                    .then(function(msg) {
+                        //console.log('getQueueByID then', msg)
+
+                        //_output
+                        _output = msg
+
+                    })
+                    .catch(function(msg) {
+                        //console.log('getQueueByID catch', msg)
+
+                        //_output
+                        _output = { err: msg }
+
+                    })
+
+            }
+            else {
+
+                //_output
+                _output = { err: `can not find id` }
+
+            }
+
+            //callback
+            callback(_output)
+
+        }
+        else if (func === 'getQueueByIDs') {
+
+            //ids
+            let ids = get(_intput, 'ids', null)
+
+            //pms
+            let pms = map(ids, function(id) {
+
+                //get queue by id
+                return worm.select({ id: id })
+
+            })
+
+            //map
+            await Promise.all(pms)
+                .then(function(msg) {
+                    //console.log('getQueueByIDs then', msg)
+
+                    //_output
+                    _output = msg
+
+                })
+                .catch(function(msg) {
+                    //console.log('getQueueByIDs catch', msg)
+
+                    //_output
+                    _output = { err: msg }
+
+                })
+
+            //callback
+            callback(_output)
+
+        }
+        else if (func === 'getQueueByMatches') {
+
+            //find
+            let find = get(_intput, 'find', null)
+
+            //get queue by find
+            await worm.select(find)
+                .then(function(msg) {
+                    //console.log('getQueueByMatches then', msg)
+
+                    //_output
+                    _output = msg
+
+                })
+                .catch(function(msg) {
+                    //console.log('getQueueByMatches catch', msg)
+
+                    //_output
+                    _output = { err: msg }
+
+                })
+
+            //callback
+            callback(_output)
+
+        }
         else {
             //其他執行函數
         }

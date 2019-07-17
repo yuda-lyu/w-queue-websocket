@@ -244,6 +244,82 @@ function WRunqwsClient(opt = {}) {
 
 
     /**
+     * 由訂閱主題取得佇列
+     *
+     * @param {String} topic 輸入訂閱主題字串
+     */
+    function getQueueByTopic(topic) {
+
+        //_input
+        let _input = {
+            topic,
+        }
+
+        //execute
+        return wcc.execute('getQueueByTopic', _input)
+
+    }
+    wcc.getQueueByTopic = getQueueByTopic
+
+
+    /**
+     * 由佇列id取得佇列
+     *
+     * @param {String} id 輸入佇列id字串
+     */
+    function getQueueByID(id) {
+
+        //_input
+        let _input = {
+            id,
+        }
+
+        //execute
+        return wcc.execute('getQueueByID', _input)
+
+    }
+    wcc.getQueueByID = getQueueByID
+
+
+    /**
+     * 由佇列id陣列取得佇列
+     *
+     * @param {Array} ids 輸入佇列id字串陣列
+     */
+    function getQueueByIDs(ids) {
+
+        //_input
+        let _input = {
+            ids,
+        }
+
+        //execute
+        return wcc.execute('getQueueByIDs', _input)
+
+    }
+    wcc.getQueueByIDs = getQueueByIDs
+
+
+    /**
+     * 由查詢條件取得佇列
+     *
+     * @param {Object} find 輸入取得條件物件
+     */
+    function getQueueByMatches(find) {
+
+        //_input
+        let _input = {
+            find,
+        }
+
+        //execute
+        return wcc.execute('getQueueByMatches', _input)
+
+    }
+    wcc.getQueueByMatches = getQueueByMatches
+
+
+    /**
      * 由訂閱主題刪除佇列
      *
      * @param {String} topic 輸入訂閱主題字串
