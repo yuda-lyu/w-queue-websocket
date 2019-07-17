@@ -229,7 +229,7 @@ wo.on('queueChange', function(topic, id, input, output, state) {
 })
 ```
 
-#### Example for w-runqws-client in a complicated situation:
+#### In a complicated situation:
 > Consumer, **Link:** [[dev source code](https://github.com/yuda-lyu/w-runqws/blob/master/scl-c2p1-cm.mjs)]
 
 > Producer, **Link:** [[dev source code](https://github.com/yuda-lyu/w-runqws/blob/master/scl-c2p1-pd.mjs)]
