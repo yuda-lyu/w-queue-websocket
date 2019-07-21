@@ -7,6 +7,7 @@ import _ from 'lodash'
 let opt = {
     url: 'ws://localhost:8080',
     token: '*',
+    //takeNumLimit: 1, //0 for non-blocking, 1~n for blocking and need to call cb() in queueChange
 }
 
 let missionTopic = 'merge|texts'
@@ -41,12 +42,12 @@ wo.on('broadcast', function(data) {
 wo.on('deliver', function(data) {
     //console.log('client nodejs[port:8080]: deliver', data)
 })
-wo.on('queueChange', function(topic, id, input, output, state) {
-    //console.log('client nodejs[port:8080]: queueChange', topic, id, input, output, state)
-    console.log('queueChange', input, output, state)
+wo.on('queueChange', function(topic, id, input, output, state, cb) {
+    //console.log('client nodejs[port:8080]: queueChange', topic, id, input, output, state, cb)
 
     //ready queue
     if (topic === missionTopic && state === 'ready') {
+        console.log('queueChange', input, output, state)
 
         //pid
         let pid = input.pid
@@ -83,7 +84,6 @@ wo.on('queueChange', function(topic, id, input, output, state) {
                     text: _.join(_.map(dtqs[pid].qs, 'output'), ''),
                     data: new Uint8Array([66, 97, 115]),
                 },
-                ids: _.map(dtqs[pid].qs, 'id'),
             }
 
             //state

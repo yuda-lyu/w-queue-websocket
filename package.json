@@ -1,10 +1,11 @@
 {
   "name": "w-runqws",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A simple message queuing(MQ) in nodejs and browser, communicates with websocket.",
   "main": "dist/w-runqws-server.umd.js",
   "dependencies": {
     "w-orm-mongodb": "^1.1.0",
+    "w-queue": "^1.0.1",
     "ws": "^7.1.0"
   },
   "devDependencies": {
@@ -57,8 +58,9 @@
   "keywords": [
     "package",
     "tool",
-    "operator",
-    "queues",
+    "queue",
+    "service",
+    "websocket",
     "nodejs",
     "browser"
   ],

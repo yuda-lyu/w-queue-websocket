@@ -17,7 +17,7 @@ import WOrm from 'w-orm-mongodb/src/WOrmMongodb.mjs' //rollup編譯時得剔除m
  * @param {Object} [opt={}] 輸入設定物件，預設{}
  * @param {String} [opt.url='mongodb://127.0.0.1:27017'] 輸入連接資料庫字串，預設'mongodb://127.0.0.1:27017'
  * @param {String} [opt.db='wqws'] 輸入使用資料庫名稱字串，預設'wqws'
- * @param {String} [opt.cl='test'] 輸入使用資料表名稱字串，預設'queues'
+ * @param {String} [opt.cl='queues'] 輸入使用資料表名稱字串，預設'queues'
  * @param {Integer} [opt.port=8080] 輸入WebSocket伺服器所在port，預設8080
  * @param {Function} opt.authenticate 輸入使用者身份認證函數，供伺服器端驗證之用，函數會傳入使用者端連線之token參數，回傳為Promise，resolve(true)為驗證通過，resolve(false)為驗證不通過
  * @returns {Object} 回傳通訊物件，可監聽事件open、error、clientChange、execute、broadcast、deliver，可使用函數broadcast

@@ -14,21 +14,22 @@
         <script src="https://cdn.jsdelivr.net/npm/w-jsonview-tree/dist/w-jsonview-tree.umd.js"></script>
         <script>
             let jv=window['w-jsonview-tree']
-            function logData(title,data){
-                let id='c'+wsemi.genID()
-                let s='<div style="margin:10px;"><div style="display:inline-block; vertical-align:top; margin-right:5px; color:#62f;">'+title+'</div><div id="'+id+'" style="display:inline-block; vertical-align:top;"></div></div>'
-                document.querySelector('body').insertAdjacentHTML('beforeend', s)
-                let ele=document.querySelector('#'+id)
-                if(data){
-                    if(wsemi.isnum(data) || wsemi.isstr(data)){
-                        ele.innerHTML=data
-                    }
-                    else{
-                        jv(data, ele, {expanded:true})
-                        ele.style.marginTop='-4px'
-                    }
-                }
-            }
+            let logData=console.log
+            // function logData(title,data){
+            //     let id='c'+wsemi.genID()
+            //     let s='<div style="margin:10px;"><div style="display:inline-block; vertical-align:top; margin-right:5px; color:#62f;">'+title+'</div><div id="'+id+'" style="display:inline-block; vertical-align:top;"></div></div>'
+            //     document.querySelector('body').insertAdjacentHTML('beforeend', s)
+            //     let ele=document.querySelector('#'+id)
+            //     if(data){
+            //         if(wsemi.isnum(data) || wsemi.isstr(data)){
+            //             ele.innerHTML=data
+            //         }
+            //         else{
+            //             jv(data, ele, {expanded:true})
+            //             ele.style.marginTop='-4px'
+            //         }
+            //     }
+            // }
         </script>
         
         <script>
@@ -36,6 +37,7 @@
             let opt = {
                 url: 'ws://localhost:8080',
                 token: '*',
+                takeNumLimit: 0, //0 for non-blocking, 1~n for blocking and need to call cb() in queueChange
             }
 
             let missionTopic = 'parser|texts'
@@ -71,7 +73,7 @@
                     if (n === 10) {
                         clearInterval(t)
                     }
-                }, 50)
+                }, 20)
 
             })
             wo.on('openOnce', function() {
@@ -92,16 +94,16 @@
             wo.on('deliver', function(data) {
                 //logData('client web: deliver', data)
             })
-            wo.on('queueChange', function(topic, id, input, output, state) {
-                //logData('client web: queueChange', topic, id, input, output, state)
-                logData('queueChange', {
-                    input:input, 
-                    output:output, 
-                    state:state,
-                })
+            wo.on('queueChange', function(topic, id, input, output, state, cb) {
+                //logData('client web: queueChange', topic, id, input, output, state, cb)
 
                 //ready queue
                 if (topic === missionTopic && state === 'ready') {
+                    logData('queueChange', {
+                        input:input, 
+                        output:output, 
+                        state:state,
+                    })
 
                     setTimeout(function() {
 
@@ -114,7 +116,26 @@
                         //modifyQueue
                         wo.modifyQueue(topic, id, input, output, state)
 
+                        //cb
+                        logData('queueChange done', {
+                            input:input, 
+                            output:output, 
+                            state:state,
+                        })
+                        cb()
+
                     }, 1000)
+
+                }
+                else {
+
+                    //cb
+                    // logData('queueChange skip', {
+                    //         input:input, 
+                    //         output:output, 
+                    //         state:state,
+                    //     })
+                    cb()
 
                 }
 

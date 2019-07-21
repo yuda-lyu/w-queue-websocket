@@ -84,22 +84,18 @@ wo.on('queueChange', function(topic, id, input, output, state) {
         wo.getQueueByTopic(missionTopic)
             .then(function(qs) {
                 //console.log('getQueueByTopic', qs)
-                let r = qs.map(function(q) {
-                    return q.input
+
+                //ids
+                let ids = qs.map(function(q) {
+                    return q.id
                 })
-                console.log(r)
+
+                //delQueueByIDs
+                return wo.delQueueByIDs(ids)
             })
-
-        //delay 1s
-        setTimeout(function() {
-
-            //delQueueByIDs
-            wo.delQueueByIDs(output.ids)
-                .then(function(msg) {
-                    console.log('delQueueByIDs', msg)
-                })
-
-        }, 1000)
+            .then(function(msg) {
+                console.log('delQueueByIDs', msg)
+            })
 
     }
 

@@ -6,6 +6,7 @@ import WRunqwsClient from './src/WRunqwsClient.mjs'
 let opt = {
     url: 'ws://localhost:8080',
     token: '*',
+    //takeNumLimit: 0, //no restrictions required for producer
 }
 
 let missionTopic = 'parser|texts'
@@ -40,7 +41,7 @@ wo.on('open', function() {
         if (n === 10) {
             clearInterval(t)
         }
-    }, 1)
+    }, 20)
 
 })
 wo.on('openOnce', function() {

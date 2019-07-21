@@ -1,6 +1,7 @@
 import cloneDeep from 'lodash/cloneDeep'
 import get from 'lodash/get'
 import WConverwsClient from 'w-converws/src/WConverwsClient.mjs'
+import WQueue from 'w-queue/src/WQueue.mjs'
 
 
 /**
@@ -122,13 +123,47 @@ function WRunqwsClient(opt = {}) {
     if (!opt.token) {
         opt.token = '*'
     }
+    if (!opt.takeNumLimit) {
+        opt.takeNumLimit = 0
+    }
 
 
-    //new
+    //wcc
     let wcc = new WConverwsClient(opt)
 
 
-    //deliver, 伺服器使用deliver給有訂閱主題的各客戶端資料
+    //wq
+    let wq = new WQueue(opt)
+
+
+    //wq message
+    wq.on('message', function(qs) {
+
+        //get
+        let data = wq.get()
+        if (!data) {
+            return
+        }
+
+        //emit
+        wcc.emit('queueChange',
+            get(data, 'topic', null),
+            get(data, 'id', null),
+            get(data, 'input', null),
+            get(data, 'output', null),
+            get(data, 'state', null),
+            function() {
+
+                //cb
+                wq.cb()
+
+            }
+        )
+
+    })
+
+
+    //wcc deliver, 伺服器使用deliver給有訂閱主題的各客戶端資料
     wcc.on('deliver', function(data) {
 
         //topic
@@ -139,14 +174,8 @@ function WRunqwsClient(opt = {}) {
             return
         }
 
-        //modify queue and emit
-        wcc.emit('queueChange',
-            get(data, 'topic', null),
-            get(data, 'id', null),
-            get(data, 'input', null),
-            get(data, 'output', null),
-            get(data, 'state', null)
-        )
+        //push data for queue
+        wq.push(data)
 
     })
 
