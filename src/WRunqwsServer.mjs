@@ -230,7 +230,7 @@ function WRunqwsServer(opt = {}) {
                 }
 
                 //save queue
-                await worm.save(r)
+                await worm.save(r, { atomic: true })
                     .then(function(msg) {
                         //console.log('modifyQueue then', msg)
 
