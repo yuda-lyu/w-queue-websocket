@@ -31,7 +31,7 @@ wo.on('open', function() {
     //     wo.broadcast(`server: broadcast: hi(${n})`)
     // }, 1000)
 
-    // //show eventNames
+    // //show eventNames from events.EventEmitter
     // setInterval(() => {
     //     console.log('eventNames:')
     //     _.each(wo.eventNames(), function(v) {

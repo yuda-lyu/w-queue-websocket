@@ -58,7 +58,7 @@ wo.on('open', function() {
     //     wo.broadcast(`server: broadcast: hi(${n})`)
     // }, 1000)
 
-    // //show eventNames
+    // //show eventNames from events.EventEmitter
     // setInterval(() => {
     //     console.log('eventNames:')
     //     _.each(wo.eventNames(), function(v) {
@@ -332,14 +332,165 @@ wo.on('queueChange', function(topic, id, input, output, state) {
 <script src="https://cdn.jsdelivr.net/npm/w-runqws@1.0.4/dist/w-runqws-client.umd.js"></script>
 ```
 #### Example for w-runqws-client:
-> **Link:** [[dev source code](https://github.com/yuda-lyu/w-runqws/blob/master/web.html)]
-
-`Producer` generates missions on open, and `Consumer` handles each queue on queueChange.
+> Consumer, **Link:** [[dev source code](https://github.com/yuda-lyu/w-runqws/blob/master/web-c1p0-cm.html)]
+> 
+`Consumer` gets missions from `Producer`, and handles each queue.
 ```alias
 let opt = {
     url: 'ws://localhost:8080',
     token: '*',
     takeNumLimit: 1, //0 for non-blocking, 1~n for blocking and need to call cb() in queueChange
+}
+
+let missionTopic = 'parser|texts'
+
+//new
+let WRunqwsClient = window['w-runqws-client']
+let wo = new WRunqwsClient(opt)
+
+wo.on('open', function() {
+    console.log('client web: open')
+
+    // //delQueueByTopic
+    // wo.delQueueByTopic(missionTopic)
+    //     .then(function(msg) {
+    //         console.log('delQueueByTopic', msg)
+    //     })
+
+    //subTopic
+    wo.subTopic(missionTopic)
+
+})
+wo.on('openOnce', function() {
+    console.log('client web: openOnce')
+})
+wo.on('close', function() {
+    console.log('client web: close')
+})
+wo.on('error', function(err) {
+    console.log('client web: error', err)
+})
+wo.on('reconn', function() {
+    console.log('client web: reconn')
+})
+wo.on('broadcast', function(data) {
+    console.log('client web: broadcast', data)
+})
+wo.on('deliver', function(data) {
+    //console.log('client web: deliver', data)
+})
+wo.on('queueChange', function(topic, id, input, output, state, cb) {
+    //console.log('client web: queueChange', topic, id, input, output, state, cb)
+
+    //ready queue
+    if (topic === missionTopic && state === 'ready') {
+        console.log('queueChange', input, output, state)
+
+        setTimeout(function() {
+
+            //output
+            output = 'done(' + input.replace('#', '') + ')'
+
+            //state
+            state = 'finish'
+
+            //modifyQueue
+            wo.modifyQueue(topic, id, input, output, state)
+
+            //cb
+            console.log('queueChange done', input, output, state)
+            cb()
+
+        }, 1000)
+
+    }
+    else {
+
+        //cb
+        //console.log('queueChange skip', input, output, state)
+        cb()
+
+    }
+
+})
+
+
+// blocking, takeNumLimit=1
+// queueChange #1 null ready
+// queueChange done #1 done(1) finish
+// queueChange #2 null ready
+// queueChange done #2 done(2) finish
+// queueChange #3 null ready
+// queueChange done #3 done(3) finish
+// queueChange #4 null ready
+// queueChange done #4 done(4) finish
+// queueChange #5 null ready
+// queueChange done #5 done(5) finish
+// queueChange #6 null ready
+// queueChange done #6 done(6) finish
+// queueChange #7 null ready
+// queueChange done #7 done(7) finish
+// queueChange #8 null ready
+// queueChange done #8 done(8) finish
+// queueChange #9 null ready
+// queueChange done #9 done(9) finish
+// queueChange #10 null ready
+// queueChange done #10 done(10) finish
+
+
+// blocking, takeNumLimit=2
+// queueChange #1 null ready
+// queueChange #2 null ready
+// queueChange done #1 done(1) finish
+// queueChange #3 null ready
+// queueChange done #2 done(2) finish
+// queueChange #4 null ready
+// queueChange done #3 done(3) finish
+// queueChange #5 null ready
+// queueChange done #4 done(4) finish
+// queueChange #6 null ready
+// queueChange done #5 done(5) finish
+// queueChange #7 null ready
+// queueChange done #6 done(6) finish
+// queueChange #8 null ready
+// queueChange done #7 done(7) finish
+// queueChange #9 null ready
+// queueChange done #8 done(8) finish
+// queueChange #10 null ready
+// queueChange done #9 done(9) finish
+// queueChange done #10 done(10) finish
+
+
+// non-blocking, takeNumLimit=0
+// queueChange #1 null ready
+// queueChange #2 null ready
+// queueChange #3 null ready
+// queueChange #4 null ready
+// queueChange #5 null ready
+// queueChange #6 null ready
+// queueChange #7 null ready
+// queueChange #8 null ready
+// queueChange #9 null ready
+// queueChange #10 null ready
+// queueChange done #1 done(1) finish
+// queueChange done #2 done(2) finish
+// queueChange done #3 done(3) finish
+// queueChange done #4 done(4) finish
+// queueChange done #5 done(5) finish
+// queueChange done #6 done(6) finish
+// queueChange done #7 done(7) finish
+// queueChange done #8 done(8) finish
+// queueChange done #9 done(9) finish
+// queueChange done #10 done(10) finish
+```
+> Producer, **Link:** [[dev source code](https://github.com/yuda-lyu/w-runqws/blob/master/web-c1p0-pd.html)]
+
+`Producer` sends missions to `Consumer`.
+```alias
+let opt = {
+    url: 'ws://localhost:8080',
+    token: '*',
+    //takeNumLimit: 0, //no restrictions required for producer
 }
 
 let missionTopic = 'parser|texts'
@@ -398,94 +549,5 @@ wo.on('deliver', function(data) {
 })
 wo.on('queueChange', function(topic, id, input, output, state) {
     //console.log('client web: queueChange', topic, id, input, output, state)
-    console.log('client web: queueChange', input, output, state)
-    
-    //ready queue
-    if (topic === missionTopic && state === 'ready') {
-
-        setTimeout(function() {
-
-            //output
-            output = 'done(' + input.replace('#', '') + ')'
-
-            //state
-            state = 'finish'
-
-            //modifyQueue
-            wo.modifyQueue(topic, id, input, output, state)
-
-        }, 1000)
-
-    }
-
 })
-
-
-// blocking, takeNumLimit=1
-// queueChange {input: "#1", output: null, state: "ready"}
-// queueChange done {input: "#1", output: "done(1)", state: "finish"}
-// queueChange {input: "#2", output: null, state: "ready"}
-// queueChange done {input: "#2", output: "done(2)", state: "finish"}
-// queueChange {input: "#3", output: null, state: "ready"}
-// queueChange done {input: "#3", output: "done(3)", state: "finish"}
-// queueChange {input: "#4", output: null, state: "ready"}
-// queueChange done {input: "#4", output: "done(4)", state: "finish"}
-// queueChange {input: "#5", output: null, state: "ready"}
-// queueChange done {input: "#5", output: "done(5)", state: "finish"}
-// queueChange {input: "#6", output: null, state: "ready"}
-// queueChange done {input: "#6", output: "done(6)", state: "finish"}
-// queueChange {input: "#7", output: null, state: "ready"}
-// queueChange done {input: "#7", output: "done(7)", state: "finish"}
-// queueChange {input: "#8", output: null, state: "ready"}
-// queueChange done {input: "#8", output: "done(8)", state: "finish"}
-// queueChange {input: "#9", output: null, state: "ready"}
-// queueChange done {input: "#9", output: "done(9)", state: "finish"}
-// queueChange {input: "#10", output: null, state: "ready"}
-// queueChange done {input: "#10", output: "done(10)", state: "finish"}
-
-
-// blocking, takeNumLimit=2
-// queueChange {input: "#1", output: null, state: "ready"}
-// queueChange {input: "#2", output: null, state: "ready"}
-// queueChange done {input: "#1", output: "done(1)", state: "finish"}
-// queueChange {input: "#3", output: null, state: "ready"}
-// queueChange done {input: "#2", output: "done(2)", state: "finish"}
-// queueChange {input: "#4", output: null, state: "ready"}
-// queueChange done {input: "#3", output: "done(3)", state: "finish"}
-// queueChange {input: "#5", output: null, state: "ready"}
-// queueChange done {input: "#4", output: "done(4)", state: "finish"}
-// queueChange {input: "#6", output: null, state: "ready"}
-// queueChange done {input: "#5", output: "done(5)", state: "finish"}
-// queueChange {input: "#7", output: null, state: "ready"}
-// queueChange done {input: "#6", output: "done(6)", state: "finish"}
-// queueChange {input: "#8", output: null, state: "ready"}
-// queueChange done {input: "#7", output: "done(7)", state: "finish"}
-// queueChange {input: "#9", output: null, state: "ready"}
-// queueChange done {input: "#8", output: "done(8)", state: "finish"}
-// queueChange {input: "#10", output: null, state: "ready"}
-// queueChange done {input: "#9", output: "done(9)", state: "finish"}
-// queueChange done {input: "#10", output: "done(10)", state: "finish"}
-
-
-// non-blocking, takeNumLimit=0
-// queueChange {input: "#1", output: null, state: "ready"}
-// queueChange {input: "#2", output: null, state: "ready"}
-// queueChange {input: "#3", output: null, state: "ready"}
-// queueChange {input: "#4", output: null, state: "ready"}
-// queueChange {input: "#5", output: null, state: "ready"}
-// queueChange {input: "#6", output: null, state: "ready"}
-// queueChange {input: "#7", output: null, state: "ready"}
-// queueChange {input: "#8", output: null, state: "ready"}
-// queueChange {input: "#9", output: null, state: "ready"}
-// queueChange {input: "#10", output: null, state: "ready"}
-// queueChange done {input: "#1", output: "done(1)", state: "finish"}
-// queueChange done {input: "#2", output: "done(2)", state: "finish"}
-// queueChange done {input: "#3", output: "done(3)", state: "finish"}
-// queueChange done {input: "#4", output: "done(4)", state: "finish"}
-// queueChange done {input: "#5", output: "done(5)", state: "finish"}
-// queueChange done {input: "#6", output: "done(6)", state: "finish"}
-// queueChange done {input: "#7", output: "done(7)", state: "finish"}
-// queueChange done {input: "#8", output: "done(8)", state: "finish"}
-// queueChange done {input: "#9", output: "done(9)", state: "finish"}
-// queueChange done {input: "#10", output: "done(10)", state: "finish"}
 ```
