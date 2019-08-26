@@ -1,11 +1,11 @@
 {
   "name": "w-runqws",
-  "version": "1.0.5",
+  "version": "1.0.8",
   "description": "A simple message queuing(MQ) in nodejs and browser, communicates with websocket.",
   "main": "dist/w-runqws-server.umd.js",
   "dependencies": {
     "w-orm-mongodb": "^1.1.1",
-    "w-queue": "^1.0.1",
+    "w-queue": "^1.0.2",
     "ws": "^7.1.2"
   },
   "devDependencies": {
@@ -21,22 +21,22 @@
     "babel-eslint": "^10.0.2",
     "core-js": "^3.2.1",
     "docdash": "^1.1.1",
-    "eslint": "^6.1.0",
-    "eslint-config-standard": "^13.0.1",
+    "eslint": "^6.2.2",
+    "eslint-config-standard": "^14.0.1",
     "eslint-friendly-formatter": "^4.0.1",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-node": "^9.1.0",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-standard": "^4.0.1",
     "eslint-plugin-vue": "^5.2.3",
-    "gh-pages": "^2.0.1",
+    "gh-pages": "^2.1.1",
     "jsdoc": "^3.6.3",
+    "jsdoc-vuejs": "^3.0.2",
     "lodash": "^4.17.15",
     "mocha": "^6.2.0",
-    "rollup": "^1.19.4",
+    "rollup": "^1.20.2",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-babel-minify": "^9.0.0",
-    "rollup-plugin-buble": "^0.19.8",
     "rollup-plugin-commonjs": "^10.0.2",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-postcss": "^2.0.3",
@@ -44,8 +44,8 @@
     "rollup-plugin-vue": "^5.0.1",
     "rollup-plugin-vue-template-compiler": "^1.0.3",
     "vue-template-compiler": "^2.6.10",
-    "w-converws": "^1.0.7",
-    "wsemi": "^1.2.3"
+    "w-converws": "^1.0.11",
+    "wsemi": "^1.2.19"
   },
   "scripts": {
     "test": "mocha --require @babel/register",
