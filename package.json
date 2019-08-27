@@ -1,11 +1,11 @@
 {
   "name": "w-runqws",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "A simple message queuing(MQ) in nodejs and browser, communicates with websocket.",
   "main": "dist/w-runqws-server.umd.js",
   "dependencies": {
-    "w-orm-mongodb": "^1.1.1",
-    "w-queue": "^1.0.2",
+    "w-orm-mongodb": "^1.1.6",
+    "w-queue": "^1.0.9",
     "ws": "^7.1.2"
   },
   "devDependencies": {
@@ -18,7 +18,7 @@
     "@babel/preset-env": "^7.5.5",
     "@babel/register": "^7.5.5",
     "@babel/runtime": "^7.5.5",
-    "babel-eslint": "^10.0.2",
+    "babel-eslint": "^10.0.3",
     "core-js": "^3.2.1",
     "docdash": "^1.1.1",
     "eslint": "^6.2.2",
@@ -44,8 +44,8 @@
     "rollup-plugin-vue": "^5.0.1",
     "rollup-plugin-vue-template-compiler": "^1.0.3",
     "vue-template-compiler": "^2.6.10",
-    "w-converws": "^1.0.11",
-    "wsemi": "^1.2.19"
+    "w-converws": "^1.0.15",
+    "wsemi": "^1.2.21"
   },
   "scripts": {
     "test": "mocha --require @babel/register",
