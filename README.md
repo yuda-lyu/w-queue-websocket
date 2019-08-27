@@ -29,7 +29,7 @@ npm i w-runqws
 #### Example for w-runqws-server:
 > **Link:** [[dev source code](https://github.com/yuda-lyu/w-runqws/blob/master/srv.mjs)]
 ```alias
-import WConverwsServer from 'w-runqws/dist/w-runqws-server.umd.js'
+import WRunqwsServer from 'w-runqws/dist/w-runqws-server.umd.js'
 
 let opt = {
     mongoUrl: 'mongodb://username:password@127.0.0.1:27017',
@@ -95,7 +95,7 @@ wo.on('deliver', function(data) {
 > 
 `Consumer` gets missions from `Producer`, and handles each queue.
 ```alias
-import WConverwsClient from 'w-runqws/dist/w-runqws-client.umd.js'
+import WRunqwsClient from 'w-runqws/dist/w-runqws-client.umd.js'
 
 let opt = {
     url: 'ws://localhost:8080',
@@ -247,7 +247,7 @@ wo.on('queueChange', function(topic, id, input, output, state, cb) {
 
 `Producer` sends missions to `Consumer`.
 ```alias
-import WConverwsClient from 'w-runqws/dist/w-runqws-client.umd.js'
+import WRunqwsClient from 'w-runqws/dist/w-runqws-client.umd.js'
 
 let opt = {
     url: 'ws://localhost:8080',
@@ -329,7 +329,7 @@ wo.on('queueChange', function(topic, id, input, output, state) {
 
 [Necessary] Add script for w-runqws-client.
 ```alias
-<script src="https://cdn.jsdelivr.net/npm/w-runqws@1.0.9/dist/w-runqws-client.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/w-runqws@1.0.10/dist/w-runqws-client.umd.js"></script>
 ```
 #### Example for w-runqws-client:
 > Consumer, **Link:** [[dev source code](https://github.com/yuda-lyu/w-runqws/blob/master/web-c1p0-cm.html)]
