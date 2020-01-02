@@ -1,7 +1,7 @@
 import cloneDeep from 'lodash/cloneDeep'
 import get from 'lodash/get'
+import queue from 'wsemi/src/queue.mjs'
 import WConverwsClient from 'w-converws/src/WConverwsClient.mjs'
-import WQueue from 'w-queue/src/WQueue.mjs'
 
 
 /**
@@ -133,7 +133,7 @@ function WRunqwsClient(opt = {}) {
 
 
     //wq
-    let wq = new WQueue(opt)
+    let wq = queue(opt.takeNumLimit)
 
 
     //wq message

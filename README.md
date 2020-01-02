@@ -21,7 +21,7 @@ To view documentation or get support, visit [docs](https://yuda-lyu.github.io/w-
 ### Using npm(ES6 module):
 > **Note:** `w-runqws-server` depends on `ws`, `events`, `w-converws` and `w-orm-mongodb`.
 
-> **Note:** `w-runqws-client` depends on `wolfy87-eventemitter`, `w-queue`, `w-websocket-client` and `w-converws`.
+> **Note:** `w-runqws-client` depends on `w-websocket-client` and `w-converws`.
 
 ```alias
 npm i w-runqws
@@ -329,7 +329,7 @@ wo.on('queueChange', function(topic, id, input, output, state) {
 
 [Necessary] Add script for w-runqws-client.
 ```alias
-<script src="https://cdn.jsdelivr.net/npm/w-runqws@1.0.17/dist/w-runqws-client.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/w-runqws@1.0.18/dist/w-runqws-client.umd.js"></script>
 ```
 #### Example for w-runqws-client:
 > Consumer, **Link:** [[dev source code](https://github.com/yuda-lyu/w-runqws/blob/master/web-c1p0-cm.html)]
