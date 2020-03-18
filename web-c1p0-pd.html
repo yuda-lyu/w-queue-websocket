@@ -13,7 +13,7 @@
 
         <script src="https://cdn.jsdelivr.net/npm/w-consolelog/dist/w-consolelog.umd.js"></script>
         <script>
-            let logData=window['w-consolelog']
+            console.log = window['w-consolelog']
         </script>
         
         <script>
@@ -31,7 +31,7 @@
             let wo = new WRunqwsClient(opt)
 
             wo.on('open', function() {
-                logData('client web: open')
+                console.log('client web: open')
 
                 //subTopic
                 wo.subTopic(missionTopic)
@@ -61,25 +61,25 @@
 
             })
             wo.on('openOnce', function() {
-                logData('client web: openOnce')
+                console.log('client web: openOnce')
             })
             wo.on('close', function() {
-                logData('client web: close')
+                console.log('client web: close')
             })
             wo.on('error', function(err) {
-                logData('client web: error', err)
+                console.log('client web: error', err)
             })
             wo.on('reconn', function() {
-                logData('client web: reconn')
+                console.log('client web: reconn')
             })
             wo.on('broadcast', function(data) {
-                logData('client web: broadcast', data)
+                console.log('client web: broadcast', data)
             })
             wo.on('deliver', function(data) {
-                //logData('client web: deliver', data)
+                //console.log('client web: deliver', data)
             })
             wo.on('queueChange', function(topic, id, input, output, state) {
-                //logData('client web: queueChange', topic, id, input, output, state)
+                //console.log('client web: queueChange', topic, id, input, output, state)
             })
 
         </script>
