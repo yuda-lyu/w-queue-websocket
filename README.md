@@ -19,9 +19,9 @@ To view documentation or get support, visit [docs](https://yuda-lyu.github.io/w-
 
 ## Installation
 ### Using npm(ES6 module):
-> **Note:** `w-runqws-server` depends on `ws`, `events`, `w-converws` and `w-orm-mongodb`.
+> **Note:** `w-runqws-server` is mainly dependent on `ws`, `events`, `w-converws` and `w-orm-mongodb`.
 
-> **Note:** `w-runqws-client` depends on `w-websocket-client` and `w-converws`.
+> **Note:** `w-runqws-client` is mainly dependent on `w-websocket-client` and `w-converws`.
 
 ```alias
 npm i w-runqws

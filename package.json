@@ -4,17 +4,17 @@
   "description": "A simple message queuing(MQ) in nodejs and browser, communicates with websocket.",
   "main": "dist/w-runqws-server.umd.js",
   "dependencies": {
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "w-converws": "^1.0.28",
-    "w-orm-mongodb": "^1.1.18",
-    "ws": "^7.3.0",
-    "wsemi": "^1.4.41"
+    "w-orm-mongodb": "^1.1.22",
+    "ws": "^7.4.5",
+    "wsemi": "^1.5.77"
   },
   "devDependencies": {
-    "w-package-tools": "^1.0.25"
+    "w-package-tools": "^1.0.54"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha --require @babel/register",
+    "test": "mocha --parallel --timeout 60000 --experimental-modules --es-module-specifier-resolution=node",
     "deploy": "gh-pages -d docs"
   },
   "repository": {

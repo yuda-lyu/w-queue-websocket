@@ -65,3 +65,5 @@ wo.on('deliver', function(data) {
 wo.on('queueChange', function(topic, id, input, output, state) {
     //console.log('client nodejs[port:8080]: queueChange', topic, id, input, output, state)
 })
+
+//node --experimental-modules --es-module-specifier-resolution=node scl-c1p0-pd.mjs

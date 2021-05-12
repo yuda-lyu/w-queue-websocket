@@ -80,3 +80,4 @@ wo.on('queueChange', function(topic, id, input, output, state, cb) {
 
 })
 
+//node --experimental-modules --es-module-specifier-resolution=node scl-c1p0-cm.mjs
