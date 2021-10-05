@@ -1,17 +1,17 @@
 {
   "name": "w-runqws",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "description": "A simple message queuing(MQ) in nodejs and browser, communicates with websocket.",
   "main": "dist/w-runqws-server.umd.js",
   "dependencies": {
     "lodash": "^4.17.21",
-    "w-converws": "^1.0.28",
-    "w-orm-mongodb": "^1.1.22",
-    "ws": "^7.4.5",
-    "wsemi": "^1.5.77"
+    "w-converws": "^1.0.29",
+    "w-orm-mongodb": "^1.1.23",
+    "ws": "^8.2.3",
+    "wsemi": "^1.6.19"
   },
   "devDependencies": {
-    "w-package-tools": "^1.0.54"
+    "w-package-tools": "^1.0.59"
   },
   "scripts": {
     "test": "mocha --parallel --timeout 60000 --experimental-modules --es-module-specifier-resolution=node",
