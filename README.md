@@ -3,7 +3,6 @@ An operator for websocket in nodejs and browser.
 
 ![language](https://img.shields.io/badge/language-JavaScript-orange.svg) 
 [![npm version](http://img.shields.io/npm/v/w-runqws.svg?style=flat)](https://npmjs.org/package/w-runqws) 
-[![Build Status](https://travis-ci.org/yuda-lyu/w-runqws.svg?branch=master)](https://travis-ci.org/yuda-lyu/w-runqws) 
 [![license](https://img.shields.io/npm/l/w-runqws.svg?style=flat)](https://npmjs.org/package/w-runqws) 
 [![gzip file size](http://img.badgesize.io/yuda-lyu/w-runqws/master/dist/w-runqws-server.umd.js.svg?compression=gzip)](https://github.com/yuda-lyu/w-runqws)
 [![npm download](https://img.shields.io/npm/dt/w-runqws.svg)](https://npmjs.org/package/w-runqws) 
