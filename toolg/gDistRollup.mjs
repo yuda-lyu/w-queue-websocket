@@ -13,13 +13,11 @@ rollupFiles({
     nameDistType: 'kebabCase',
     globals: {
         'ws': 'ws',
-        'events': 'events',
         'mongodb': 'mongodb',
         'stream': 'stream',
     },
     external: [
         'ws',
-        'events',
         'mongodb',
         'stream',
     ],

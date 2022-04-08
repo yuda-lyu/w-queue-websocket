@@ -18,7 +18,7 @@ To view documentation or get support, visit [docs](https://yuda-lyu.github.io/w-
 
 ## Installation
 ### Using npm(ES6 module):
-> **Note:** `w-runqws-server` is mainly dependent on `ws`, `events`, `w-converws` and `w-orm-mongodb`.
+> **Note:** `w-runqws-server` is mainly dependent on `w-converws` and `w-orm-mongodb`.
 
 > **Note:** `w-runqws-client` is mainly dependent on `w-websocket-client` and `w-converws`.
 
@@ -55,15 +55,6 @@ wo.on('open', function() {
     // setInterval(() => {
     //     n += 1
     //     wo.broadcast(`server: broadcast: hi(${n})`)
-    // }, 1000)
-
-    // //show eventNames from events.EventEmitter
-    // setInterval(() => {
-    //     console.log('eventNames:')
-    //     _.each(wo.eventNames(), function(v) {
-    //         console.log('    ', v, wo.listenerCount(v))
-    //     })
-    //     console.log('')
     // }, 1000)
 
 })
@@ -328,7 +319,7 @@ wo.on('queueChange', function(topic, id, input, output, state) {
 
 [Necessary] Add script for w-runqws-client.
 ```alias
-<script src="https://cdn.jsdelivr.net/npm/w-runqws@1.0.23/dist/w-runqws-client.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/w-runqws@1.0.24/dist/w-runqws-client.umd.js"></script>
 ```
 #### Example for w-runqws-client:
 > Consumer, **Link:** [[dev source code](https://github.com/yuda-lyu/w-runqws/blob/master/web-c1p0-cm.html)]

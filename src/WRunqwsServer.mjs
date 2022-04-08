@@ -53,15 +53,6 @@ import WOrm from 'w-orm-mongodb/src/WOrmMongodb.mjs' //rollup編譯時得剔除m
  *     //     wo.broadcast(`server: broadcast: hi(${n})`)
  *     // }, 1000)
  *
- *     // //show eventNames from events.EventEmitter
- *     // setInterval(() => {
- *     //     console.log('eventNames:')
- *     //     _.each(wo.eventNames(), function(v) {
- *     //         console.log('    ', v, wo.listenerCount(v))
- *     //     })
- *     //     console.log('')
- *     // }, 1000)
- *
  * })
  * wo.on('error', function(err) {
  *     console.log(`Server[port:${opt.port}]: error`, err)

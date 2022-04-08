@@ -31,15 +31,6 @@ wo.on('open', function() {
     //     wo.broadcast(`server: broadcast: hi(${n})`)
     // }, 1000)
 
-    // //show eventNames from events.EventEmitter
-    // setInterval(() => {
-    //     console.log('eventNames:')
-    //     _.each(wo.eventNames(), function(v) {
-    //         console.log('    ', v, wo.listenerCount(v))
-    //     })
-    //     console.log('')
-    // }, 1000)
-
 })
 wo.on('error', function(err) {
     console.log(`Server[port:${opt.port}]: error`, err)
