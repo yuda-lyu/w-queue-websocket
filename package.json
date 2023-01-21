@@ -1,17 +1,16 @@
 {
   "name": "w-runqws",
-  "version": "1.0.24",
-  "description": "A simple message queuing(MQ) in nodejs and browser, communicates with websocket.",
+  "version": "1.0.25",
   "main": "dist/w-runqws-server.umd.js",
   "dependencies": {
     "lodash": "^4.17.21",
-    "w-converws": "^1.0.30",
-    "w-orm-mongodb": "^1.1.26",
-    "ws": "^8.5.0",
-    "wsemi": "^1.6.54"
+    "w-converws": "^1.0.31",
+    "w-orm-mongodb": "^1.1.27",
+    "ws": "^8.12.0",
+    "wsemi": "^1.6.87"
   },
   "devDependencies": {
-    "w-package-tools": "^1.0.65"
+    "w-package-tools": "^1.0.66"
   },
   "scripts": {
     "test": "mocha --parallel --timeout 60000 --experimental-modules --es-module-specifier-resolution=node",
@@ -31,9 +30,5 @@
     "browser"
   ],
   "author": "yuda-lyu(semisphere)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/yuda-lyu/w-runqws/issues"
-  },
-  "homepage": "https://github.com/yuda-lyu/w-runqws#readme"
+  "license": "MIT"
 }
