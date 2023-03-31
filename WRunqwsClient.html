@@ -14,6 +14,7 @@
     <link type="text/css" rel="stylesheet" href="styles/prettify.css">
     <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
     <script src="scripts/nav.js" defer></script>
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -27,7 +28,9 @@
 
 <nav >
     
+    
     <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="WRunqwsClient.html">WRunqwsClient</a><ul class='methods'><li data-type='method'><a href="WRunqwsClient.html#.onQueueChange">onQueueChange</a></li><li data-type='method'><a href="WRunqwsClient.html#~delQueueByID">delQueueByID</a></li><li data-type='method'><a href="WRunqwsClient.html#~delQueueByIDs">delQueueByIDs</a></li><li data-type='method'><a href="WRunqwsClient.html#~delQueueByMatches">delQueueByMatches</a></li><li data-type='method'><a href="WRunqwsClient.html#~delQueueByTopic">delQueueByTopic</a></li><li data-type='method'><a href="WRunqwsClient.html#~getQueueByID">getQueueByID</a></li><li data-type='method'><a href="WRunqwsClient.html#~getQueueByIDs">getQueueByIDs</a></li><li data-type='method'><a href="WRunqwsClient.html#~getQueueByMatches">getQueueByMatches</a></li><li data-type='method'><a href="WRunqwsClient.html#~getQueueByTopic">getQueueByTopic</a></li><li data-type='method'><a href="WRunqwsClient.html#~modifyQueue">modifyQueue</a></li><li data-type='method'><a href="WRunqwsClient.html#~pushQueue">pushQueue</a></li><li data-type='method'><a href="WRunqwsClient.html#~subTopic">subTopic</a></li><li data-type='method'><a href="WRunqwsClient.html#~unsubTopic">unsubTopic</a></li></ul></li><li><a href="WRunqwsServer.html">WRunqwsServer</a></li></ul>
+    
 </nav>
 
 <div id="main">
@@ -45,7 +48,9 @@
 <header>
     
         <h2>
-        WRunqwsClient
+        
+            WRunqwsClient
+        
         </h2>
         
     
@@ -67,6 +72,11 @@
 
 
 <dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>建立WebSocket使用者(Node.js與Browser)端物件</p>
+<p>Inherit: <a href="https://yuda-lyu.github.io/w-converws/WConverwsClient.html">WConverwsClient</a></p></li></ul></dd>
+    
 
     
     <dt class="tag-source">Source:</dt>
@@ -117,27 +127,20 @@
 
 
 
-<div class="description usertext">
-    <p>建立WebSocket使用者(Node.js與Browser)端物件</p>
-<p>Inherit: <a href="https://yuda-lyu.github.io/w-converws/WConverwsClient.html">WConverwsClient</a></p>
-</div>
 
 
 
 
 
 
-
-
-
-    <h5>Example</h5>
+    <h5 class="h5-examples">Example</h5>
     
     <pre class="prettyprint"><code>import WRunqwsClient from 'w-runqws/dist/w-runqws-client.umd.js'let opt = {    url: 'ws://localhost:8080',    token: '*',}let missionTopic = 'parser|texts'//newlet wo = new WRunqwsClient(opt)wo.on('open', function() {    console.log('client nodejs[port:8080]: open')    // //delQueueByTopic    // wo.delQueueByTopic(missionTopic)    //     .then(function(msg) {    //         console.log('delQueueByTopic', msg)    //     })    //subTopic    wo.subTopic(missionTopic)    function addMission(n) {        //input        let input = '#' + n        //option        let option = {}        //pushQueue        wo.pushQueue(missionTopic, input, option)    }    //mission    let n = 0    let t = setInterval(function() {        n += 1        addMission(n)        if (n === 10) {            clearInterval(t)        }    }, 50)})wo.on('openOnce', function() {    console.log('client nodejs[port:8080]: openOnce')})wo.on('close', function() {    console.log('client nodejs[port:8080]: close')})wo.on('error', function(err) {    console.log('client nodejs[port:8080]: error', err)})wo.on('reconn', function() {    console.log('client nodejs[port:8080]: reconn')})wo.on('broadcast', function(data) {    console.log('client nodejs[port:8080]: broadcast', data)})wo.on('deliver', function(data) {    //console.log('client nodejs[port:8080]: deliver', data)})wo.on('queueChange', function(topic, id, input, output, state) {    //console.log('client nodejs[port:8080]: queueChange', topic, id, input, output, state)    console.log('queueChange', input, output, state)    //ready queue    if (topic === missionTopic &amp;&amp; state === 'ready') {        setTimeout(function() {            //output            output = 'done(' + input.replace('#', '') + ')'            //state            state = 'finish'            //modifyQueue            wo.modifyQueue(topic, id, input, output, state)        }, 1000)    }})</code></pre>
 
 
 
 
-    <h5>Parameters:</h5>
+    <h5 class="h5-parameters">Parameters:</h5>
     
 
 <table class="params">
@@ -173,6 +176,7 @@
             
                 
 <span class="param-type">Object</span>
+
 
 
             
@@ -237,6 +241,7 @@
 <span class="param-type">String</span>
 
 
+
             
             </td>
 
@@ -274,6 +279,7 @@
             
                 
 <span class="param-type">String</span>
+
 
 
             
@@ -328,7 +334,7 @@
 
 
 
-<h5>Returns:</h5>
+<h5 class="h5-returns">Returns:</h5>
 
         
 <div class="param-desc">
@@ -344,6 +350,7 @@
     <dd>
         
 <span class="param-type">Object</span>
+
 
 
     </dd>
@@ -379,7 +386,7 @@
 
     
 
-    <h4 class="name" id=".onQueueChange"><span class="type-signature">(static) </span>onQueueChange<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".onQueueChange"><span class="type-signature type-signature-static">(static) </span>onQueueChange<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
@@ -387,6 +394,10 @@
 
 
 <dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>監聽佇列變更事件</p></li></ul></dd>
+    
 
     
     <dt class="tag-source">Source:</dt>
@@ -430,19 +441,13 @@
 
 
 
-<div class="description usertext">
-    <p>監聽佇列變更事件</p>
-</div>
 
 
 
 
 
 
-
-
-
-    <h5>Example</h5>
+    <h5 class="h5-examples">Example</h5>
     
     <pre class="prettyprint"><code>wo.on('queueChange', function() {    ...})</code></pre>
 
@@ -471,7 +476,7 @@
 
     
 
-    <h4 class="name" id="~delQueueByID"><span class="type-signature">(inner) </span>delQueueByID<span class="signature">(id)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~delQueueByID"><span class="type-signature type-signature-inner">(inner) </span>delQueueByID<span class="signature">(id)</span><span class="type-signature"></span></h4>
 
     
 
@@ -479,6 +484,10 @@
 
 
 <dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>由佇列id刪除佇列</p></li></ul></dd>
+    
 
     
     <dt class="tag-source">Source:</dt>
@@ -522,9 +531,6 @@
 
 
 
-<div class="description usertext">
-    <p>由佇列id刪除佇列</p>
-</div>
 
 
 
@@ -533,10 +539,7 @@
 
 
 
-
-
-
-    <h5>Parameters:</h5>
+    <h5 class="h5-parameters">Parameters:</h5>
     
 
 <table class="params">
@@ -568,6 +571,7 @@
             
                 
 <span class="param-type">String</span>
+
 
 
             
@@ -607,7 +611,7 @@
 
     
 
-    <h4 class="name" id="~delQueueByIDs"><span class="type-signature">(inner) </span>delQueueByIDs<span class="signature">(ids)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~delQueueByIDs"><span class="type-signature type-signature-inner">(inner) </span>delQueueByIDs<span class="signature">(ids)</span><span class="type-signature"></span></h4>
 
     
 
@@ -615,6 +619,10 @@
 
 
 <dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>由佇列id陣列刪除佇列</p></li></ul></dd>
+    
 
     
     <dt class="tag-source">Source:</dt>
@@ -658,9 +666,6 @@
 
 
 
-<div class="description usertext">
-    <p>由佇列id陣列刪除佇列</p>
-</div>
 
 
 
@@ -669,10 +674,7 @@
 
 
 
-
-
-
-    <h5>Parameters:</h5>
+    <h5 class="h5-parameters">Parameters:</h5>
     
 
 <table class="params">
@@ -704,6 +706,7 @@
             
                 
 <span class="param-type">Array</span>
+
 
 
             
@@ -743,7 +746,7 @@
 
     
 
-    <h4 class="name" id="~delQueueByMatches"><span class="type-signature">(inner) </span>delQueueByMatches<span class="signature">(find)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~delQueueByMatches"><span class="type-signature type-signature-inner">(inner) </span>delQueueByMatches<span class="signature">(find)</span><span class="type-signature"></span></h4>
 
     
 
@@ -751,6 +754,10 @@
 
 
 <dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>由刪除條件刪除佇列</p></li></ul></dd>
+    
 
     
     <dt class="tag-source">Source:</dt>
@@ -794,9 +801,6 @@
 
 
 
-<div class="description usertext">
-    <p>由刪除條件刪除佇列</p>
-</div>
 
 
 
@@ -805,10 +809,7 @@
 
 
 
-
-
-
-    <h5>Parameters:</h5>
+    <h5 class="h5-parameters">Parameters:</h5>
     
 
 <table class="params">
@@ -840,6 +841,7 @@
             
                 
 <span class="param-type">Object</span>
+
 
 
             
@@ -879,7 +881,7 @@
 
     
 
-    <h4 class="name" id="~delQueueByTopic"><span class="type-signature">(inner) </span>delQueueByTopic<span class="signature">(topic)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~delQueueByTopic"><span class="type-signature type-signature-inner">(inner) </span>delQueueByTopic<span class="signature">(topic)</span><span class="type-signature"></span></h4>
 
     
 
@@ -887,6 +889,10 @@
 
 
 <dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>由訂閱主題刪除佇列</p></li></ul></dd>
+    
 
     
     <dt class="tag-source">Source:</dt>
@@ -930,9 +936,6 @@
 
 
 
-<div class="description usertext">
-    <p>由訂閱主題刪除佇列</p>
-</div>
 
 
 
@@ -941,10 +944,7 @@
 
 
 
-
-
-
-    <h5>Parameters:</h5>
+    <h5 class="h5-parameters">Parameters:</h5>
     
 
 <table class="params">
@@ -976,6 +976,7 @@
             
                 
 <span class="param-type">String</span>
+
 
 
             
@@ -1015,7 +1016,7 @@
 
     
 
-    <h4 class="name" id="~getQueueByID"><span class="type-signature">(inner) </span>getQueueByID<span class="signature">(id)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~getQueueByID"><span class="type-signature type-signature-inner">(inner) </span>getQueueByID<span class="signature">(id)</span><span class="type-signature"></span></h4>
 
     
 
@@ -1023,6 +1024,10 @@
 
 
 <dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>由佇列id取得佇列</p></li></ul></dd>
+    
 
     
     <dt class="tag-source">Source:</dt>
@@ -1066,9 +1071,6 @@
 
 
 
-<div class="description usertext">
-    <p>由佇列id取得佇列</p>
-</div>
 
 
 
@@ -1077,10 +1079,7 @@
 
 
 
-
-
-
-    <h5>Parameters:</h5>
+    <h5 class="h5-parameters">Parameters:</h5>
     
 
 <table class="params">
@@ -1112,6 +1111,7 @@
             
                 
 <span class="param-type">String</span>
+
 
 
             
@@ -1151,7 +1151,7 @@
 
     
 
-    <h4 class="name" id="~getQueueByIDs"><span class="type-signature">(inner) </span>getQueueByIDs<span class="signature">(ids)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~getQueueByIDs"><span class="type-signature type-signature-inner">(inner) </span>getQueueByIDs<span class="signature">(ids)</span><span class="type-signature"></span></h4>
 
     
 
@@ -1159,6 +1159,10 @@
 
 
 <dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>由佇列id陣列取得佇列</p></li></ul></dd>
+    
 
     
     <dt class="tag-source">Source:</dt>
@@ -1202,9 +1206,6 @@
 
 
 
-<div class="description usertext">
-    <p>由佇列id陣列取得佇列</p>
-</div>
 
 
 
@@ -1213,10 +1214,7 @@
 
 
 
-
-
-
-    <h5>Parameters:</h5>
+    <h5 class="h5-parameters">Parameters:</h5>
     
 
 <table class="params">
@@ -1248,6 +1246,7 @@
             
                 
 <span class="param-type">Array</span>
+
 
 
             
@@ -1287,7 +1286,7 @@
 
     
 
-    <h4 class="name" id="~getQueueByMatches"><span class="type-signature">(inner) </span>getQueueByMatches<span class="signature">(find)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~getQueueByMatches"><span class="type-signature type-signature-inner">(inner) </span>getQueueByMatches<span class="signature">(find)</span><span class="type-signature"></span></h4>
 
     
 
@@ -1295,6 +1294,10 @@
 
 
 <dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>由查詢條件取得佇列</p></li></ul></dd>
+    
 
     
     <dt class="tag-source">Source:</dt>
@@ -1338,9 +1341,6 @@
 
 
 
-<div class="description usertext">
-    <p>由查詢條件取得佇列</p>
-</div>
 
 
 
@@ -1349,10 +1349,7 @@
 
 
 
-
-
-
-    <h5>Parameters:</h5>
+    <h5 class="h5-parameters">Parameters:</h5>
     
 
 <table class="params">
@@ -1384,6 +1381,7 @@
             
                 
 <span class="param-type">Object</span>
+
 
 
             
@@ -1423,7 +1421,7 @@
 
     
 
-    <h4 class="name" id="~getQueueByTopic"><span class="type-signature">(inner) </span>getQueueByTopic<span class="signature">(topic)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~getQueueByTopic"><span class="type-signature type-signature-inner">(inner) </span>getQueueByTopic<span class="signature">(topic)</span><span class="type-signature"></span></h4>
 
     
 
@@ -1431,6 +1429,10 @@
 
 
 <dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>由訂閱主題取得佇列</p></li></ul></dd>
+    
 
     
     <dt class="tag-source">Source:</dt>
@@ -1474,9 +1476,6 @@
 
 
 
-<div class="description usertext">
-    <p>由訂閱主題取得佇列</p>
-</div>
 
 
 
@@ -1485,10 +1484,7 @@
 
 
 
-
-
-
-    <h5>Parameters:</h5>
+    <h5 class="h5-parameters">Parameters:</h5>
     
 
 <table class="params">
@@ -1520,6 +1516,7 @@
             
                 
 <span class="param-type">String</span>
+
 
 
             
@@ -1559,7 +1556,7 @@
 
     
 
-    <h4 class="name" id="~modifyQueue"><span class="type-signature">(inner) </span>modifyQueue<span class="signature">(topic, input, output, state)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~modifyQueue"><span class="type-signature type-signature-inner">(inner) </span>modifyQueue<span class="signature">(topic, input, output, state)</span><span class="type-signature"></span></h4>
 
     
 
@@ -1567,6 +1564,10 @@
 
 
 <dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>佇列變更事件</p></li></ul></dd>
+    
 
     
     <dt class="tag-source">Source:</dt>
@@ -1610,9 +1611,6 @@
 
 
 
-<div class="description usertext">
-    <p>佇列變更事件</p>
-</div>
 
 
 
@@ -1621,10 +1619,7 @@
 
 
 
-
-
-
-    <h5>Parameters:</h5>
+    <h5 class="h5-parameters">Parameters:</h5>
     
 
 <table class="params">
@@ -1658,6 +1653,7 @@
 <span class="param-type">String</span>
 
 
+
             
             </td>
 
@@ -1679,6 +1675,7 @@
             
                 
 <span class="param-type">*</span>
+
 
 
             
@@ -1704,6 +1701,7 @@
 <span class="param-type">*</span>
 
 
+
             
             </td>
 
@@ -1725,6 +1723,7 @@
             
                 
 <span class="param-type">String</span>
+
 
 
             
@@ -1764,7 +1763,7 @@
 
     
 
-    <h4 class="name" id="~pushQueue"><span class="type-signature">(inner) </span>pushQueue<span class="signature">(topic, input, option<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~pushQueue"><span class="type-signature type-signature-inner">(inner) </span>pushQueue<span class="signature">(topic, input, option<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
@@ -1772,6 +1771,10 @@
 
 
 <dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>佇列發佈事件</p></li></ul></dd>
+    
 
     
     <dt class="tag-source">Source:</dt>
@@ -1815,9 +1818,6 @@
 
 
 
-<div class="description usertext">
-    <p>佇列發佈事件</p>
-</div>
 
 
 
@@ -1826,10 +1826,7 @@
 
 
 
-
-
-
-    <h5>Parameters:</h5>
+    <h5 class="h5-parameters">Parameters:</h5>
     
 
 <table class="params">
@@ -1867,6 +1864,7 @@
 <span class="param-type">String</span>
 
 
+
             
             </td>
 
@@ -1902,6 +1900,7 @@
 <span class="param-type">*</span>
 
 
+
             
             </td>
 
@@ -1935,6 +1934,7 @@
             
                 
 <span class="param-type">Object</span>
+
 
 
             
@@ -1999,6 +1999,7 @@
 <span class="param-type">Object</span>
 
 
+
             
             </td>
 
@@ -2036,6 +2037,7 @@
             
                 
 <span class="param-type">String</span>
+
 
 
             
@@ -2077,6 +2079,7 @@
 <span class="param-type">String</span>
 
 
+
             
             </td>
 
@@ -2116,6 +2119,7 @@
 <span class="param-type">String</span>
 
 
+
             
             </td>
 
@@ -2153,6 +2157,7 @@
             
                 
 <span class="param-type">String</span>
+
 
 
             
@@ -2215,7 +2220,7 @@
 
     
 
-    <h4 class="name" id="~subTopic"><span class="type-signature">(inner) </span>subTopic<span class="signature">(topic)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~subTopic"><span class="type-signature type-signature-inner">(inner) </span>subTopic<span class="signature">(topic)</span><span class="type-signature"></span></h4>
 
     
 
@@ -2223,6 +2228,10 @@
 
 
 <dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>訂閱事件</p></li></ul></dd>
+    
 
     
     <dt class="tag-source">Source:</dt>
@@ -2266,9 +2275,6 @@
 
 
 
-<div class="description usertext">
-    <p>訂閱事件</p>
-</div>
 
 
 
@@ -2277,10 +2283,7 @@
 
 
 
-
-
-
-    <h5>Parameters:</h5>
+    <h5 class="h5-parameters">Parameters:</h5>
     
 
 <table class="params">
@@ -2312,6 +2315,7 @@
             
                 
 <span class="param-type">String</span>
+
 
 
             
@@ -2351,7 +2355,7 @@
 
     
 
-    <h4 class="name" id="~unsubTopic"><span class="type-signature">(inner) </span>unsubTopic<span class="signature">(topic)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~unsubTopic"><span class="type-signature type-signature-inner">(inner) </span>unsubTopic<span class="signature">(topic)</span><span class="type-signature"></span></h4>
 
     
 
@@ -2359,6 +2363,10 @@
 
 
 <dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li><p>取消訂閱事件</p></li></ul></dd>
+    
 
     
     <dt class="tag-source">Source:</dt>
@@ -2402,9 +2410,6 @@
 
 
 
-<div class="description usertext">
-    <p>取消訂閱事件</p>
-</div>
 
 
 
@@ -2413,10 +2418,7 @@
 
 
 
-
-
-
-    <h5>Parameters:</h5>
+    <h5 class="h5-parameters">Parameters:</h5>
     
 
 <table class="params">
@@ -2448,6 +2450,7 @@
             
                 
 <span class="param-type">String</span>
+
 
 
             
@@ -2502,7 +2505,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> on Sat Jan 21 2023 17:29:02 GMT+0800 (台北標準時間) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Fri Mar 31 2023 16:10:51 GMT+0800 (台北標準時間) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
