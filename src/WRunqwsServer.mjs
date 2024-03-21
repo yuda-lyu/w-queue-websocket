@@ -1,6 +1,6 @@
-import cloneDeep from 'lodash/cloneDeep'
-import get from 'lodash/get'
-import map from 'lodash/map'
+import cloneDeep from 'lodash-es/cloneDeep'
+import get from 'lodash-es/get'
+import map from 'lodash-es/map'
 import genID from 'wsemi/src/genID.mjs'
 import WConverwsServer from 'w-converws/src/WConverwsServer.mjs' //rollup編譯時得剔除ws與events
 import WOrm from 'w-orm-mongodb/src/WOrmMongodb.mjs' //rollup編譯時得剔除mongodb與stream
@@ -154,9 +154,9 @@ function WRunqwsServer(opt = {}) {
 
             //r
             let r = {
-                topic: topic,
-                id: id,
-                input: input,
+                topic,
+                id,
+                input,
                 output: null,
                 transData: get(option, 'transData', null),
                 timeStart: get(option, 'timeStart', null),
@@ -173,8 +173,8 @@ function WRunqwsServer(opt = {}) {
 
                     //emit
                     wcs.emit(topic, {
-                        topic: topic,
-                        id: id,
+                        topic,
+                        id,
                         input: r.input,
                         output: r.output,
                         state: r.state,
@@ -215,9 +215,9 @@ function WRunqwsServer(opt = {}) {
 
                 //r
                 let r = {
-                    id: id,
-                    output: output,
-                    state: state,
+                    id,
+                    output,
+                    state,
                 }
 
                 //save queue
@@ -291,7 +291,7 @@ function WRunqwsServer(opt = {}) {
         else if (func === 'delQueueByTopic') {
 
             //del queue by topic
-            await worm.delAll({ topic: topic })
+            await worm.delAll({ topic })
                 .then(function(msg) {
                     //console.log('delQueueByTopic then', msg)
 
@@ -320,7 +320,7 @@ function WRunqwsServer(opt = {}) {
             if (id !== null) {
 
                 //del queue by id
-                await worm.delAll({ id: id })
+                await worm.delAll({ id })
                     .then(function(msg) {
                     //console.log('delQueueByID then', msg)
 
@@ -357,7 +357,7 @@ function WRunqwsServer(opt = {}) {
             let pms = map(ids, function(id) {
 
                 //del queue by id
-                return worm.delAll({ id: id })
+                return worm.delAll({ id })
 
             })
 
@@ -411,7 +411,7 @@ function WRunqwsServer(opt = {}) {
         else if (func === 'getQueueByTopic') {
 
             //get queue by topic
-            await worm.select({ topic: topic })
+            await worm.select({ topic })
                 .then(function(msg) {
                     //console.log('getQueueByTopic then', msg)
 
@@ -440,7 +440,7 @@ function WRunqwsServer(opt = {}) {
             if (id !== null) {
 
                 //get queue by id
-                await worm.select({ id: id })
+                await worm.select({ id })
                     .then(function(msg) {
                         //console.log('getQueueByID then', msg)
 
@@ -477,7 +477,7 @@ function WRunqwsServer(opt = {}) {
             let pms = map(ids, function(id) {
 
                 //get queue by id
-                return worm.select({ id: id })
+                return worm.select({ id })
 
             })
 

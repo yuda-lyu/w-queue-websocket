@@ -1,6 +1,6 @@
 import WRunqwsClient from './src/WRunqwsClient.mjs'
 //import WRunqwsClient from './dist/w-runqws-client.umd.js'
-import _ from 'lodash'
+import _ from 'lodash-es'
 
 //client: Consumer
 

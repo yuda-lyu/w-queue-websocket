@@ -1,6 +1,6 @@
 import WRunqwsServer from './src/WRunqwsServer.mjs'
 //import WRunqwsServer from './dist/w-runqws-server.umd.js'
-//import _ from 'lodash'
+//import _ from 'lodash-es'
 
 
 let opt = {
