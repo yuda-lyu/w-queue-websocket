@@ -1,6 +1,6 @@
-import cloneDeep from 'lodash-es/cloneDeep'
-import get from 'lodash-es/get'
-import map from 'lodash-es/map'
+import cloneDeep from 'lodash-es/cloneDeep.js'
+import get from 'lodash-es/get.js'
+import map from 'lodash-es/map.js'
 import genID from 'wsemi/src/genID.mjs'
 import WConverwsServer from 'w-converws/src/WConverwsServer.mjs' //rollup編譯時得剔除ws與events
 import WOrm from 'w-orm-mongodb/src/WOrmMongodb.mjs' //rollup編譯時得剔除mongodb與stream

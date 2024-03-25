@@ -1,5 +1,5 @@
-import cloneDeep from 'lodash-es/cloneDeep'
-import get from 'lodash-es/get'
+import cloneDeep from 'lodash-es/cloneDeep.js'
+import get from 'lodash-es/get.js'
 import queue from 'wsemi/src/queue.mjs'
 import WConverwsClient from 'w-converws/src/WConverwsClient.mjs'
 

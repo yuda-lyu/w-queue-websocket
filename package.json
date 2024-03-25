@@ -1,16 +1,16 @@
 {
   "name": "w-runqws",
-  "version": "1.0.27",
+  "version": "1.0.28",
   "main": "dist/w-runqws-server.umd.js",
   "dependencies": {
     "lodash-es": "^4.17.21",
-    "w-converws": "^1.0.33",
-    "w-orm-mongodb": "^1.1.30",
+    "w-converws": "^1.0.34",
+    "w-orm-mongodb": "^1.1.31",
     "ws": "^8.16.0",
-    "wsemi": "^1.7.47"
+    "wsemi": "^1.7.49"
   },
   "devDependencies": {
-    "w-package-tools": "^1.0.73"
+    "w-package-tools": "^1.0.75"
   },
   "scripts": {
     "test": "mocha --parallel --timeout 60000 --experimental-modules --es-module-specifier-resolution=node",
